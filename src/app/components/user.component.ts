@@ -1,0 +1,75 @@
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'user',   //this is what u write in html <my-app>
+    template: `
+    <h1>Hello {{name}}</h1>
+    <p> Email : {{email}} </p>
+    <p> Address: {{address.city}}, {{address.street}} </p>
+
+    <!-- when ever you wanna use an event, just use the parenthesis and the functionname -->
+    <!-- in this case we are trying click - (click) -->
+
+    <button (click)="toggleHobbies()"> click me to {{showHobbies ? "Hide Hobbies" : "Show Hobbies" }}</button>
+
+    <!-- you can also do a else in the {{}} << what issit call? anw ^^^^^ refering to the above, if showHobbies is true show "Hide Hobbies" else show "Show Hobbies"-->
+
+    <div *ngIf="showHobbies">
+        <h3> Hobbies </h3>
+
+        <!-- looping through the array -->
+        <ul>
+            <li *ngFor="let hobby of hobbies"> <!-- using of ngFor-->
+                {{hobby}}
+            </li>
+        </ul>
+    </div>
+    `, //this is a back tag not a quote so can use multiple line
+})
+export class UserComponent  {
+    name:string; //only defining the property variable not the value
+    email:string;
+
+    //defining with an interface type
+    address:address;
+
+    hobbies: string[];
+
+    showHobbies:boolean;
+
+    constructor(){
+
+
+        this.name = 'Angular';
+        this.email = 'candiie@gmail.com';
+
+        this.address = {
+            street : 'toa payoh',
+            city : 'singapore'
+        }
+
+        this.hobbies = ['Music', 'Sports', 'Programming'];
+
+        console.log("ran!");
+        this.name = 'Candiie';
+
+        this.showHobbies = false;
+    }
+
+
+    toggleHobbies(){
+
+        if(this.showHobbies){
+            this.showHobbies = false;
+        }else{
+            this.showHobbies = true;
+        }
+        console.log("show hobbies!");
+    };
+}
+
+//defining with an interface
+interface address {
+    street: string;
+    city: string;
+}
