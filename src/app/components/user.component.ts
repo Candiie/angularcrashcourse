@@ -24,6 +24,23 @@ import { Component } from '@angular/core';
             </li>
         </ul>
     </div>
+
+    <!-- Inputs and data binding -->
+
+    <hr/>
+
+    <h2> Edit User Details </h2> <br/>
+
+    <form>
+        <label> Name: </label> <br/>
+        <input type="text" name="name" [(ngModel)]="name" /> <!-- no have ; semi-colon after code in html-->
+        <br/>
+        <br/>
+        <label> City: </label> <br/>
+        <input type="text" name="address.city" [(ngModel)]="address.city" /> <!-- no have ; semi-colon after code in html-->
+
+    </form>
+
     `, //this is a back tag not a quote so can use multiple line
 })
 export class UserComponent  {
