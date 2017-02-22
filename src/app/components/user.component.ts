@@ -19,13 +19,13 @@ import { Component } from '@angular/core';
 
         <!-- looping through the array -->
         <ul>
-            <li *ngFor="let hobby of hobbies"> <!-- using of ngFor-->
-                {{hobby}}
+            <li *ngFor="let hobby of hobbies; let i = index"> <!-- using of ngFor-->
+                {{hobby}} <button (click)="deleteHobby(i)"> X </button>
             </li>
         </ul>
     </div>
 
-    <!-- Inputs and data binding -->
+    <!-- Inputs and data binding (with ngModel) -->
 
     <hr/>
 
@@ -39,6 +39,15 @@ import { Component } from '@angular/core';
         <label> City: </label> <br/>
         <input type="text" name="address.city" [(ngModel)]="address.city" /> <!-- no have ; semi-colon after code in html-->
 
+    </form>
+
+    <br/>
+
+    <!-- Inputs and data binding (without ngModel) -->
+
+    <form (submit)="addHobby(hobby.value)">
+        <label> Add Hobby: </label> <br/>
+        <input type="text" #hobby /> <br/>
     </form>
 
     `, //this is a back tag not a quote so can use multiple line
@@ -82,6 +91,16 @@ export class UserComponent  {
             this.showHobbies = true;
         }
         console.log("show hobbies!");
+    };
+
+
+    addHobby(hobby:string){
+        this.hobbies.push(hobby);
+    };
+
+
+    deleteHobby(i:number){
+        this.hobbies.splice(i, 1); //delete the index and 1 item from the starting index list
     };
 }
 
