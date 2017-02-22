@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { PostsService } from '../services/post.service';
+
 @Component({
     selector: 'user',   //this is what u write in html <my-app>
     template: `
@@ -50,7 +52,21 @@ import { Component } from '@angular/core';
         <input type="text" #hobby /> <br/>
     </form>
 
+
+    <hr/>
+
+    <h3> Posts </h3>
+
+    <div *ngFor="let post of posts">
+        <h3> {{post.title}} </h3>
+
+        <p> {{post.body}} </p>
+    </div>
+
     `, //this is a back tag not a quote so can use multiple line
+
+    //add a provider
+    providers: [PostsService]
 })
 export class UserComponent  {
     name:string; //only defining the property variable not the value
@@ -62,8 +78,9 @@ export class UserComponent  {
     hobbies: string[];
 
     showHobbies:boolean;
+    posts:Post[];
 
-    constructor(){
+    constructor(private postsService: PostsService){ //add a post service to use the http - cos everything already write in postsservce class
 
 
         this.name = 'Angular';
@@ -80,6 +97,12 @@ export class UserComponent  {
         this.name = 'Candiie';
 
         this.showHobbies = false;
+
+                                               //setting posts to an arrow function!? say wah ~ arrow function
+        this.postsService.getPosts().subscribe(posts => {
+            //console.log(posts);     //bcos gonna return observable so need to subscribe to it
+            this.posts = posts;
+        });
     }
 
 
@@ -108,4 +131,10 @@ export class UserComponent  {
 interface address {
     street: string;
     city: string;
+}
+
+interface Post{
+    id:number;
+    title: string;
+    body: string;
 }
