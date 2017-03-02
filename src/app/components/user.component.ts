@@ -42,9 +42,36 @@ export class UserComponent  {
 
                                                //setting posts to an arrow function!? say wah ~ arrow function
         this.postsService.getPosts().subscribe(posts => {
-            //console.log(posts);     //bcos gonna return observable so need to subscribe to it
-            this.posts = posts;
+            console.log(posts);     //bcos gonna return observable so need to subscribe to it
+
+            let success:boolean = posts.success;
+
+            if(success){
+                this.posts = posts.data;
+            }
+
+            console.log(this.posts);
+
+            // this.posts = posts;
+            //
+            // this.posts[0].success = false;
+
+
+            //
+            // console.log("test");
+            // console.log(this.posts[0].success);
+            // console.log("test");
         });
+
+
+        //getItineraries posts
+
+        this.postsService.getItineraries().subscribe(iti => {
+            console.log(iti);     //bcos gonna return observable so need to subscribe to it
+
+            
+        });
+
     }
 
 
@@ -76,7 +103,11 @@ interface address {
 }
 
 interface Post{
-    id:number;
-    title: string;
-    body: string;
+    // id:number;
+    // title: string;
+    // body: string;
+    // success: boolean;
+    // data: string[];
+    //Country:string;
+    UserDisplayName:string;
 }
