@@ -25,6 +25,15 @@ export class PostsService {
 
             //return this.http.get('https://jsonplaceholder.typicode.com/posts')
     }
+	
+	private convertIdsToJson(ids:string[]) {
+		let jsonArray : Array<{ [id: string] : string; }> = [];
+		for (let id of ids) {
+			let jsonObject = {"AttractionId" : id};
+			jsonArray.push(jsonObject);
+		}
+		return jsonArray;
+	}
 
     getItineraries(){
 
@@ -33,21 +42,20 @@ export class PostsService {
 
         let api_link = "http://api-gotnt.azurewebsites.net/GoTnT/Itineraries/GetItinerary";
 
+		let ids : string[] = ["ID_00012", "ID_00013"];
+		let attractions = this.convertIdsToJson(ids);
+		
+		
         let data = JSON.stringify (
             {
                 "Locations" : [
                     {
-                        "Country": location,
+                        "Country": "Singapore",
                         "State": null,
-                        "City": location
+                        "City": "Singapore"
                     }
                 ],
-                "Attractions" : [
-                    selectedAttractions
-                    // {
-                    //     "AttractionId" :
-                    // }
-                ],
+                "Attractions" : attractions,
                 "Durations" : {
                     "StartDateTime" : null,
                     "EndDateTime" : null,
